@@ -1,0 +1,158 @@
+{% extends 'blogs/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<body>
+<!-- pre loader -->
+<div id="load">
+    <div class="load__content">
+        <div class="load__icon"><img src="{% static 'blogs/assets/images/icons/load.gif' %}" alt="Loading icon"/>
+        </div>
+    </div>
+</div>
+<!--Nav bar -->
+<!--header-->
+<!-- Main Section starts here -->
+<div id="content">
+    <div class="container">
+        <div class="blog-with-sidebar">
+            <div class="row">
+                <!-- Right side bar starts here which contains the Category & Trending Post -->
+                <div class="col-12 col-md-5 col-lg-4 order-md-2">
+                    <div class="blog-sidebar">
+                        <div class="blog-sidebar-section -category">
+                            <div class="center-line-title">
+                                <!-- Blog category sidebar -->
+                                <h5>Categories</h5>
+                            </div>
+                            <a class="category -bar " href="blog-category.html">
+                                <!--Category 1::Background Image size is 340 x 80   -->
+                                {% for category in categories %}
+                                    <div class="category__background"
+                                     style="background-image: url({{ category.image.url }})"></div>
+                                    <h5 class="title">{{ category.name }}</h5>
+                                    <h5 class="quantity">{{ category.blog_set.count }}</h5></a><a class="category -bar " href="#">
+                                {% endfor %}
+
+                            <!-- Category 2::Background Image size is 340 x 80 -->
+                                </a>
+                        </div>
+                        <!-- Trending Post Side Bar Section-->
+                        <div class="blog-sidebar-section -trending-post">
+                            <div class="center-line-title">
+                                <h5>Trending post</h5>
+                            </div>
+
+                            {% for blog in blog_list|slice:6 %}
+                                <div class="trending-post">
+                                <div class="trending-post_image">
+{#                                    <div class="rank">1</div>#}
+                                    <!--Img size is 100 x 100 -->
+                                    <img src="{{ blog.image.url }}"/>
+                                </div>
+                                <div class="trending-post_content">
+                                    <!-- Category Header -->
+                                    <h5>{{ blog.category.first }}</h5>
+                                    <a href="{% url 'post_detail' blog.slug %}">{{ blog.title }}</a>
+                                    <div class="info__time"><i class="far fa-clock"></i>
+                                        <p>{{ blog.created_at }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Subscribe Form -->
+{#                        <form class="subcribe-box subcribe-box" action="/" method="POST">#}
+{#                            <h5>Subcribe</h5>#}
+{#                            <p>Lorem ipsum dolor amet, consectetur adipiscing elit, sed tempor.</p>#}
+{#                            <input placeholder="Your email" name="email" type="email"/>#}
+{#                            <a class="btn -normal" href="#">Subcribe</a>#}
+{#                        </form>#}
+                    </div>
+                </div>
+                <!--- End of Right Side Bar ----->
+
+                <div class="col-12 col-md-7 col-lg-8 order-md-1">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-12">
+                            <div class="post-card -full -center">
+                                <a class="card__cover" href="{% url 'post_detail' last.slug %}">
+                                    <img src="{{ last.image.url }}"
+                                         alt="Getting started with DevOps automation"/>
+                                </a>
+                                <div class="card__content">
+                                    <!-- Content Category -->
+                                    <h5 class="card__content-category">{{ last.category.first }}</h5>
+                                    <!-- Content Heading -->
+                                    <a class="card__content-title" href="{% url 'post_detail' last.slug %}">{{ last.title }}</a>
+                                    <div class="card__content-info">
+                                        <!-- Content Author -->
+                                        <div class="info__time info__author"><i class="far fa-user"></i>
+                                            <p>{{ last.user.username }}</p>
+                                        </div>
+                                        <!-- Content Time and Date -->
+                                        <div class="info__time"><i class="far fa-clock"></i>
+                                            <p>{{ last.created_at }}</p>
+                                        </div>
+                                        <!-- Comments -->
+                                        <div class="info__comment"><i class="far fa-comment"></i>
+                                            <p>{{ last.blog_comment_set.count }}</p>
+                                        </div>
+                                    </div>
+                                    <!-- post Description -->
+                                    <p class="card__content-description">{{ last.description|striptags|truncatechars:150 }}</p>
+                                    <a class="more-btn" href="post.html">Read more </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="news-block__content -default">
+                            <div class="news-block__content__slide">
+                                <div class="row">
+                                    <div class="col-12">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row">
+                                            {% for blog in blog_list %}
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="post-card -small">
+                                                        <a class="card__cover" href="{% url 'post_detail' blog.slug %}">
+                                                            <!-- img size 370 x 247 -->
+                                                            <img src="{{ blog.image.url }}"/></a>
+                                                        <!-- Post content -->
+                                                        <div class="card__content">
+                                                            <h5 class="card__content-category">{{ blog.category.first }}</h5>
+                                                            <a class="card__content-title"
+                                                               href="{% url 'post_detail' blog.slug %}">{{ blog.title }}</a>
+                                                            <div class="card__content-info">
+                                                                <div class="info__time"><i class="far fa-clock"></i>
+                                                                    <p>{{ blog.created_at }}</p>
+                                                                </div>
+                                                                <div class="info__comment"><i
+                                                                        class="far fa-comment"></i>
+                                                                    <p>{{ blog.blog_comment_set.count }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+{% endblock content %}
+{#Lorem ipsum dolor sit amet, consectetur adipisicing elit. #}
+{#Adipisci aspernatur assumenda aut culpa, doloremque dolorum, #}
+{#earum est ipsum nobis possimus quia quibusdam quisquam quos,#}
+{#ratione recusandae similique sint soluta unde.#}

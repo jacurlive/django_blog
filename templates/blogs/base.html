@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- Google fonts -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://kit-pro.fontawesome.com/relea ses/v5.13.0/css/pro.min.css"/>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'blogs/assets/images/favicon.png' %}"/>
+    <!--build:css assets/css/styles.min.css-->
+    <link rel="stylesheet" href="{% static 'blogs/assets/css/elegant.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blogs/assets/css/custom_bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blogs/assets/css/slick.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blogs/assets/css/plyr.min.css' %}"/>
+    <!-- cutom css -->
+    <link rel="stylesheet" href="{% static 'blogs/assets/css/style.css' %}"/>
+    <!--endbuild-->
+</head>
+    {% include 'blogs/parts/head.html' %}
+    {% block content %}{% endblock content %}
+    {% include 'blogs/parts/footer.html' %}
+    <script rel="script/javascript" src="{% static 'blogs/assets/js/jquery.min.js' %}"></script>
+    <script rel="script/javascript" src="{% static 'blogs/assets/js/slick.min.js' %}"></script>
+    <script rel="script/javascript" src="{% static 'blogs/assets/js/plyr.min.js' %}"></script>
+    <script rel="script/javascript" src="{% static 'blogs/assets/js/masonry.pkgd.min.js' %}"></script>
+    <script rel="script/javascript" src="{% static 'blogs/assets/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script rel="script/javascript" src="{% static 'blogs/assets/js/vimeo.player.min.js' %}"></script>
+    <script rel="script/javascript" src="{% static 'blogs/assets/js/main.js' %}"></script>
+</html>
+
+

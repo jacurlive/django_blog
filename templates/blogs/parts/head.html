@@ -1,0 +1,36 @@
+{% load static %}
+<header class="theme-default">
+    <div id="search-box">
+        <div class="container">
+            <form action="/" method="POST">
+                <input type="text" placeholder="Searching for news" name="search"/>
+                <button><i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header-wrapper">
+            <a class="header__logo" href="{% url 'main' %}"><img src="{% static 'blogs/assets/images/logo1.png' %}"
+                                                                 alt="Logo"/></a>
+            <nav>
+                <ul>
+
+                    <li class="nav-item {% if request.path == '/' %}active{% endif %}"><a href="{% url 'main' %}">Home</a></li>
+                    <li class="nav-item {% if request.path == '/blogs' %}active{% endif %}"><a href="{% url 'blogs' %}">Blog</a></li>
+                    <li class="nav-item {% if request.path == '/about' %}active{% endif %}"><a href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header__icon-group"><a href="#" id="search"><i class="fas fa-search"></i></a>
+                <div class="social">
+                    {% if user.is_anonymous %}
+                        <a href="{% url 'login' %}" type="button">Login</a>
+                        <a href="{% url 'register' %}" type="button">SignIn</a>
+                    {% else %}
+                        <a href="{% url 'logout' %}" type="button">Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
