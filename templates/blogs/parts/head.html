@@ -27,6 +27,7 @@
                         <a href="{% url 'login' %}" type="button">Login</a>
                         <a href="{% url 'register' %}" type="button">SignIn</a>
                     {% else %}
+                        <a href="#" type="button">add blog</a>
                         <a href="{% url 'logout' %}" type="button">Logout</a>
                     {% endif %}
                 </div>

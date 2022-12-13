@@ -3,7 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from blogs.models import Blog, Category, Comment
+from blogs.models import Blog, Category, Comment, AboutUs
 
 
 @admin.register(Blog)
@@ -34,3 +34,8 @@ class CategoryAdmin(ModelAdmin):
 class CommentsAdmin(ModelAdmin):
     search_fields = ('text',)
     fields = ('text', 'user', 'blog')
+
+
+@admin.register(AboutUs)
+class AboutUsAdmin(ModelAdmin):
+    list_display = ('about', 'phone', 'email', 'address')

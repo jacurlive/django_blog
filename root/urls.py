@@ -3,8 +3,8 @@ from django.contrib import admin
 from django.urls import path, include
 from root import settings
 
-admin.site.site_header = "Login Admin"
-admin.site.site_title = "UMSRA Admin Portal"
+admin.site.site_header = "Admin Panelga Kirish"
+admin.site.site_title = "Admin Portali"
 admin.site.index_title = "Welcome to UMSRA Researcher Portal"
 
 urlpatterns = [

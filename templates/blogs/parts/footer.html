@@ -8,13 +8,11 @@
                         <div class="center-line-title">
                             <h5>About us</h5>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed et dolore magna aliqua. Quis
-                            ipsum suspendisse
-                            ultrices gravida lacus vel facilisis. </p>
+                        <p>{{ about.about }} </p>
                         <div class="contact-method">
-                            <p><i class="fas fa-map-marker-alt"></i>Dar es Saalam,Tanzania</p>
-                            <p><i class="far fa-mobile-android"></i>+255 123456 | +255 123456789</p>
-                            <p><i class="far fa-envelope-open"></i>hello@fuse.com</p>
+                            <p><i class="fas fa-map-marker-alt"></i>{{ about.address }}</p>
+                            <p><i class="far fa-mobile-android"></i>{{ about.phone }}</p>
+                            <p><i class="far fa-envelope-open"></i>{{ about.email }}</p>
                         </div>
                     </div>
                 </div>
@@ -24,57 +22,23 @@
                             <h5>Feature posts</h5>
                         </div>
                         <div class="feature-post-block">
-                            <div class="post-card -tiny">
-                                <a class="card__cover" href="post.html">
+                            {% for post in posts|slice:3 %}
+                                <div class="post-card -tiny">
+                                <a class="card__cover" href="{% url 'post_detail' post.slug %}">
                                     <!-- img size 360 x 360 -->
-                                    <img src="{% static 'blogs/assets/images/posts/opensource.jpg' %}"
-                                         alt="Best Open Source Tools For Developers"/>
+                                    <img src="{{ post.image.url }}"/>
                                 </a>
                                 <div class="card__content">
-                                    <h5 class="card__content-category">Open source</h5>
-                                    <a class="card__content-title" href="post.html">Best Open Source Tools For
-                                        Developers</a>
+{#                                    <h5 class="card__content-category">{{ post.category.first }}</h5>#}
+                                    <a class="card__content-title" href="{% url 'post_detail' post.slug %}">{{ post.title }}</a>
                                     <div class="card__content-info">
                                         <div class="info__time"><i class="far fa-clock"></i>
-                                            <p>Clock Wed 02, 2020</p>
+                                            <p>{{ post.created_at }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="post-card -tiny">
-                                <a class="card__cover" href="post.html">
-                                    <!-- img size 360 x 360 -->
-                                    <img src="{% static 'blogs/assets/images/posts/webdesign.jpg' %}"
-                                         alt="Best design resources websites every developer should bookmark"/>
-                                </a>
-                                <div class="card__content">
-                                    <h5 class="card__content-category">Ui / Ux</h5>
-                                    <a class="card__content-title" href="post.html">Best design resources websites every
-                                        developer should bookmark</a>
-                                    <div class="card__content-info">
-                                        <div class="info__time"><i class="far fa-clock"></i>
-                                            <p>Clock Wed 02, 2020</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-card -tiny">
-                                <!-- img size 360 -->
-                                <a class="card__cover" href="post.html">
-                                    <img src="{% static 'blogs/assets/images/posts/react.jpg' %}"
-                                         alt="Why You Should Be Using React"/>
-                                </a>
-                                <!-- content -->
-                                <div class="card__content">
-                                    <h5 class="card__content-category">Web Development</h5>
-                                    <a class="card__content-title" href="post.html">Why You Should Be Using React</a>
-                                    <div class="card__content-info">
-                                        <div class="info__time"><i class="far fa-clock"></i>
-                                            <p>Clock Wed 02, 2020</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -86,12 +50,10 @@
                                 <div class="center-line-title">
                                     <h5>Blog Tags</h5>
                                 </div>
-                                <div class="tags-group"><a class="tag-btn" href="blog-category.html">Fuse</a>
-                                    <a class="tag-btn" href="blog-category.html">Web Development</a>
-                                    <a class="tag-btn" href="blog-category.html">Ui / Ux</a>
-                                    <a class="tag-btn" href="blog-category.html">Open source</a>
-                                    <a class="tag-btn" href="blog-category.html">Productivity</a>
-                                    <a class="tag-btn" href="blog-category.html">Github</a>
+                                <div class="tags-group">
+                                    {% for category in categories %}
+                                        <a class="tag-btn" href="{% url 'blogs' %}?category={{ category.slug }}">{{ category.name }}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <!-- Social Media -->
@@ -102,7 +64,8 @@
                                 <div class="social-block"><a href="#"><i class="fab fa-facebook-f"></i></a>
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-dribbble"></i></a></div>
+                                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -110,7 +73,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>© 2020, Fuse - All rights reserved.</p>
+            <p>© 2022, Fuse - All rights reserved.</p>
         </div>
     </div>
 </footer>

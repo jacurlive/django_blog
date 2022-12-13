@@ -1,7 +1,7 @@
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CASCADE, Model, TextField, ForeignKey, EmailField, CharField, SlugField, DateTimeField, \
-    ManyToManyField, BooleanField, IntegerField
+    ManyToManyField, BooleanField, IntegerField, TextChoices
 from django.utils.text import slugify
 from django_resized import ResizedImageField
 
@@ -52,12 +52,17 @@ class User(AbstractUser):
 
 
 class Blog(Model):
+    class Status(TextChoices):
+        PENDING = 'pending', 'Kutilmoqda'
+        ACTIVE = 'active', 'Faol'
+        CANCEL = 'cancel', 'Rad etilgan'
     title = CharField(max_length=300)
     description = RichTextField()
     image = ResizedImageField(upload_to='blogs/%m')
     user = ForeignKey(User, CASCADE, null=False)
     category = ManyToManyField(Category)
     view = IntegerField(default=0)
+    status = CharField(max_length=25, choices=Status.choices, default=Status.PENDING)
     created_at = DateTimeField(auto_now=True)
     slug = SlugField(max_length=300, unique=True)
 
@@ -98,3 +103,14 @@ class Comment(Model):
 
     def __str__(self):
         return self.text
+
+
+class AboutUs(Model):
+    about = TextField()
+    phone = CharField(max_length=50)
+    address = CharField(max_length=300)
+    email = EmailField(max_length=300)
+
+    class Meta:
+        verbose_name = 'AboutUs'
+        verbose_name_plural = 'AboutUs'

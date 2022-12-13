@@ -1,34 +1,48 @@
 from django.contrib.auth.views import LoginView
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 
 from blogs.forms import LoginForm, RegisterForm
-from blogs.models import Blog, Category, User
+from blogs.models import Blog, Category, User, AboutUs
 
 
 class HomeView(ListView):
-    queryset = Blog.objects.order_by('-created_at')[1:]
+    queryset = Blog.objects.filter(status='active').order_by('-created_at')[1:]
     template_name = 'blogs/index.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        context['last'] = Blog.objects.last()
+        context['last'] = Blog.objects.filter(status='active').last()
         context['categories'] = Category.objects.all()
         return context
 
 
 class BlogView(ListView):
-    queryset = Blog.objects.order_by('-created_at')
+    queryset = Blog.objects.filter(status='active').order_by('-created_at')
     template_name = 'blogs/blog-category.html'
+    context_object_name = 'posts'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+        slug = self.request.GET.get('category')
+        qs = self.get_queryset()
+        context['posts'] = qs
+        context['category_slug'] = Category.objects.filter(slug=slug).first()
         context['categories'] = Category.objects.all()
         return context
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if category := self.request.GET.get('category'):
+            return qs.filter(category__slug=category)
+        return qs
 
-class AboutView(TemplateView):
+
+class AboutView(ListView):
     template_name = 'blogs/about.html'
+    queryset = AboutUs.objects.first()
+    context_object_name = 'about'
 
 
 class PostView(DetailView):
@@ -65,3 +79,7 @@ class RegisterView(FormView):
 
 class ConfirmEmailView(TemplateView):
     template_name = 'auth/confirm_email.html'
+
+
+class CreateBlogView(TemplateView):
+    template_name = 'blogs/add_blog.html'
