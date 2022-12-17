@@ -3,7 +3,6 @@ from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, PasswordInput
 
-import blogs.models
 from blogs.models import User
 
 
@@ -24,3 +23,9 @@ class RegisterForm(ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'phone', 'password']
+
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email', 'phone', 'bio', 'image']

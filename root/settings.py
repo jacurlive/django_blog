@@ -7,7 +7,9 @@ SECRET_KEY = 'django-insecure-&1!4+a4om9pbk9ehh)x!=hlnb0+huf-dl#(30)*9k-r5%d91w(
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CKEDITOR_UPLOAD_PATH = 'posts/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -95,8 +97,6 @@ STATIC_ROOT = os.path.join(BASE_DIR / 'static')
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
-
-CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 AUTH_USER_MODEL = 'blogs.User'
 

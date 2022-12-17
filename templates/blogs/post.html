@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block title %}Post{% endblock %}
-<!--Nav bar -->
-<!-- post starts here -->
+
 {% block content %}
     <body>
     <div id="content">
@@ -40,21 +39,12 @@
                                 <!-- content Starts here -->
                                 <p class="paragraph">{{ post.description|safe }}
                                 </p>
-{#                                <div class="post-card-quote -border">#}
-{#                                    <div class="qoute__icon">#}
-{#                                        <i class="fas fa-quote-left"></i>#}
-{#                                    </div>#}
-{#                                    <p class="quote__content">Programming is not a zero-sum game. Teaching something to#}
-{#                                        a fellow programmer doesn’t take it away from you.</p>#}
-{#                                    <h5 class="quote__author">Red Adair</h5>#}
-{#                                </div>#}
-                                <!-- Post footer -->
                                 <div class="post-footer">
                                     <div class="post-footer__tags center">
                                         <div class="tags-group">
                                             <br><br>
                                             {% for category in categories %}
-                                                <a class="tag-btn" href="blog-category.html">{{ category.name }}</a>
+                                                <a class="tag-btn" href="{% url 'blogs' %}?category={{ category.slug }}">{{ category.name }}</a>
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -164,7 +154,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- comment Form -->
                                         <h3 class="comment-title"><span>Leave a comment</span></h3>
                                         <div class="post-footer__comment__form">
                                             <form action="/">

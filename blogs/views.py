@@ -1,9 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.db.models import Q
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
 
-from blogs.forms import LoginForm, RegisterForm
+from blogs.forms import LoginForm, RegisterForm, ProfileForm
 from blogs.models import Blog, Category, User, AboutUs
 
 
@@ -27,6 +27,7 @@ class BlogView(ListView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         slug = self.request.GET.get('category')
         qs = self.get_queryset()
+        context['trending_posts'] = Blog.objects.order_by('-created_at')
         context['posts'] = qs
         context['category_slug'] = Category.objects.filter(slug=slug).first()
         context['categories'] = Category.objects.all()
@@ -67,7 +68,7 @@ class CustomLoginView(LoginView):
 class RegisterView(FormView):
     form_class = RegisterForm
     template_name = 'auth/register.html'
-    success_url = reverse_lazy('main')
+    success_url = reverse_lazy('confirm_email')
 
     def form_valid(self, form):
         form.save()
@@ -81,5 +82,33 @@ class ConfirmEmailView(TemplateView):
     template_name = 'auth/confirm_email.html'
 
 
-class CreateBlogView(TemplateView):
-    template_name = 'blogs/add_blog.html'
+class CreateBlogView(LoginRequiredMixin, UpdateView):
+    template_name = 'blogs/add-post.html'
+    queryset = User.objects.all()
+    form_class = ProfileForm
+    success_url = reverse_lazy('profile_page')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get(self, request, **kwargs):
+        self.object = self.request.user
+        context = self.get_context_data(object=self.object, form=self.form_class)
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(1)
+        return super().form_valid(form)
+
+
+class ProfileView(TemplateView):
+    template_name = 'profile/profile.html'
+
+
+class ChangePasswordView(TemplateView):
+    template_name = 'profile/change_password.html'
+

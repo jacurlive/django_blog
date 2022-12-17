@@ -1,7 +1,7 @@
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CASCADE, Model, TextField, ForeignKey, EmailField, CharField, SlugField, DateTimeField, \
-    ManyToManyField, BooleanField, IntegerField, TextChoices
+    ManyToManyField, BooleanField, IntegerField, TextChoices, ImageField
 from django.utils.text import slugify
 from django_resized import ResizedImageField
 
@@ -41,6 +41,7 @@ class User(AbstractUser):
     email = EmailField(max_length=300)
     phone = CharField(max_length=200)
     bio = TextField(null=True, blank=True)
+    image = ImageField(upload_to='user/', default='profile/user.png')
     # password = CharField(max_length=400)
     is_active = BooleanField(default=False)
 
