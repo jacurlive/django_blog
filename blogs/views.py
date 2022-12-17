@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
 
@@ -82,16 +83,22 @@ class ConfirmEmailView(TemplateView):
     template_name = 'auth/confirm_email.html'
 
 
-class CreateBlogView(LoginRequiredMixin, UpdateView):
+class CreateBlogView(TemplateView):
     template_name = 'blogs/add-post.html'
+
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    template_name = 'profile/profile.html'
     queryset = User.objects.all()
     form_class = ProfileForm
-    success_url = reverse_lazy('profile_page')
+    success_url = reverse_lazy('profile')
 
     def get_object(self, queryset=None):
         return self.request.user
 
     def get(self, request, **kwargs):
+        if self.request.user.is_anonymous:
+            return redirect('login')
         self.object = self.request.user
         context = self.get_context_data(object=self.object, form=self.form_class)
         return self.render_to_response(context)
@@ -99,14 +106,10 @@ class CreateBlogView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
+    
     def form_invalid(self, form):
         print(1)
-        return super().form_valid(form)
-
-
-class ProfileView(TemplateView):
-    template_name = 'profile/profile.html'
+        return super().form_invalid(form)
 
 
 class ChangePasswordView(TemplateView):

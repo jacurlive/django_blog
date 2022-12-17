@@ -14,6 +14,6 @@ urlpatterns = [
     path('signup', RegisterView.as_view(), name='register'),
     path('confirm_email', ConfirmEmailView.as_view(), name='confirm_email'),
     path('add', CreateBlogView.as_view(), name='add'),
-    path('profile', ProfileView.as_view(), name='profile_page'),
+    path('profile', ProfileView.as_view(), name='profile'),
     path('change_password', ChangePasswordView.as_view(), name='change_password')
     ]
