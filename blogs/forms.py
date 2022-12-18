@@ -29,3 +29,11 @@ class ProfileForm(ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'phone', 'bio', 'image']
+
+
+class ChangePasswordForm(ModelForm):
+    new_password = CharField(widget=PasswordInput(attrs={"autocomplete": "new_password"}),)
+    new_password_confirm = CharField(widget=PasswordInput(attrs={"autocomplete": "new_password_confirm"}),)
+    class Meta:
+        model = User
+        fields = ['password']

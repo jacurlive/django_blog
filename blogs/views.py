@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView
 
-from blogs.forms import LoginForm, RegisterForm, ProfileForm
+from blogs.forms import LoginForm, RegisterForm, ProfileForm, ChangePasswordForm
 from blogs.models import Blog, Category, User, AboutUs
 
 
@@ -106,12 +106,24 @@ class ProfileView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         print(1)
         return super().form_invalid(form)
 
 
-class ChangePasswordView(TemplateView):
+class ChangePasswordView(UpdateView):
     template_name = 'profile/change_password.html'
+    form_class = ChangePasswordForm
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get(self, request, **kwargs):
+        if self.request.user.is_anonymous:
+            return redirect('login')
+        self.object = self.request.user
+        context = self.get_context_data(object=self.object, form=self.form_class)
+        return self.render_to_response(context)
 
