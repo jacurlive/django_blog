@@ -6,6 +6,7 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView, U
 
 from blogs.forms import LoginForm, RegisterForm, ProfileForm, ChangePasswordForm
 from blogs.models import Blog, Category, User, AboutUs
+from blogs.tasks import send_email
 
 
 class HomeView(ListView):
@@ -73,6 +74,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         form.save()
+        send_email(form.data.get('email'))
         return super().form_valid(form)
 
     def form_invalid(self, form):
