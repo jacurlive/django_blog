@@ -2,15 +2,16 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.urls import reverse
 from django.utils.html import format_html
-
-from blogs.models import Blog, Category, Comment, AboutUs
+from blogs.models import Blog, Category, Comment, AboutUs, ContactMessage
 
 
 @admin.register(Blog)
 class BlogsAdmin(ModelAdmin):
-    search_fields = ('title',)
-    fields = ('title', 'description', 'image', 'category', 'user')
-    list_display = ('id', 'title', 'categories')
+    search_fields = ('title', 'status')
+    fields = ('title', 'description', 'image', 'category', 'status', 'user')
+    list_display = ('id', 'title', 'status', 'categories')
+    list_display_links = ('title',)
+    list_editable = ('status',)
 
     def categories(self, obj):
         lst = []
@@ -39,3 +40,8 @@ class CommentsAdmin(ModelAdmin):
 @admin.register(AboutUs)
 class AboutUsAdmin(ModelAdmin):
     list_display = ('about', 'phone', 'email', 'address')
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(ModelAdmin):
+    list_display = ('name', 'email', 'website', 'message')

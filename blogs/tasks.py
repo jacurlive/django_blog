@@ -5,14 +5,14 @@ from django.core.mail import EmailMessage
 from root.settings import EMAIL_HOST_USER
 
 
-def send_email(email):
-    num = randint(10000, 99999)
-    res_email = [email]
+# def send_email(email):
+#     num = randint(10000, 99999)
+#     res_email = [email]
 
-    email = EmailMessage('subject', f'{num}', EMAIL_HOST_USER, res_email)
-    email.send()
+#     email = EmailMessage('subject', f'{num}', EMAIL_HOST_USER, res_email)
+#     email.send()
 
-    return num
+#     return num
 
 
 # def ret(message):

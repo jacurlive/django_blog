@@ -13,6 +13,7 @@
         <div
                 class="container-xl px-4 mt-4">
 
+        <form method="post" action="{% url 'profile' %}" enctype="multipart/form-data" novalidate>
 
             <div
                     class="row">
@@ -23,16 +24,15 @@
                         <div
                                 class="card-header">Profile Picture
                         </div>
-                        <div
-                                class="card-body text-center"><img
-                                class="img-account-profile rounded-circle mb-2"
-                                src="{{ user.image.url }}" alt="" height="150" width="150">
-                            <div
-                                    class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB
-                            </div>
-                            <button
-                                    class="btn btn-primary" type="button">Upload new image
-                            </button>
+                        <div class="card-body text-center">
+                            <img class="img-account-profile rounded-circle mb-2" src="{{ user.image.url }}" alt="" height="150" width="150">
+                            <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                            
+                            <!-- Замените кнопку на элемент input типа "file" -->
+                            <input type="file" class="form-control-file" id="imageInput" name="image" accept="image/*" style="display: none;">
+                            
+                            <!-- Если нужно, добавьте метку и стилизацию для элемента input -->
+                            <label for="imageInput" class="btn btn-primary">Choose File</label>
                         </div>
                     </div>
                 </div>
@@ -45,8 +45,6 @@
                         </div>
                         <div
                                 class="card-body">
-                            <form method="post" action="{% url 'profile' %}" enctype="multipart/form-data"
-                              novalidate>
                                 {% csrf_token %}
                                 <div
                                         class="mb-3"><label
@@ -94,7 +92,7 @@
                                 </button>
                                 <a href="{% url 'change_password' %}" type="button" class="btn btn-primary">change
                                     password</a>
-                            </form>
+        </form>
                         </div>
                     </div>
                 </div>

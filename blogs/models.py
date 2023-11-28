@@ -115,3 +115,10 @@ class AboutUs(Model):
     class Meta:
         verbose_name = 'AboutUs'
         verbose_name_plural = 'AboutUs'
+
+
+class ContactMessage(Model):
+    name = CharField(max_length=100)
+    email = EmailField()
+    website = CharField(max_length=100, blank=True, null=True)
+    message = TextField()

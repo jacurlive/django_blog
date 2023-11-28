@@ -1,4 +1,5 @@
 {% extends 'blogs/base.html' %}
+{% autoescape off %}
 {% load static %}
 
 {% block title %}Post{% endblock %}
@@ -112,7 +113,7 @@
                                     <!-- comments  -->
                                     <div class="post-footer__comment">
                                         <h3 class="comment-title"><span></span></h3>
-                                        <div class="post-footer__comment__detail">
+                                        <!-- <div class="post-footer__comment__detail">
 
                                             <div class="comment__item">
                                                 <div class="comment__item__avatar">
@@ -153,7 +154,7 @@
                                                         guide our decisions.Thank you.</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <h3 class="comment-title"><span>Leave a comment</span></h3>
                                         <div class="post-footer__comment__form">
                                             <form action="/">
@@ -174,4 +175,6 @@
         </div>
     </div>
     </body>
+
 {% endblock content %}
+{% endautoescape %}
