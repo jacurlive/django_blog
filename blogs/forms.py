@@ -2,7 +2,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, PasswordInput
-
 from blogs.models import User
 
 
@@ -37,3 +36,6 @@ class ChangePasswordForm(ModelForm):
     class Meta:
         model = User
         fields = ['password']
+
+
+# class ConfirmEmail(ModelForm):

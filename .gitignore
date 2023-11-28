@@ -240,3 +240,5 @@ cython_debug/
 #.idea/
 
 **/migrations/**
+
+/db.sqlite3

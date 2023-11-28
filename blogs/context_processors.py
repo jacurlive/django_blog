@@ -6,10 +6,12 @@ def about(request):
         "about": AboutUs.objects.first()
     }
 
+
 def posts(request):
     return {
         "posts": Blog.objects.all()
     }
+
 
 def categories(request):
     return {

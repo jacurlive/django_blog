@@ -6,10 +6,14 @@ from root.settings import EMAIL_HOST_USER
 
 
 def send_email(email):
-    num = randint(1000, 9999)
+    num = randint(10000, 99999)
     res_email = [email]
 
     email = EmailMessage('subject', f'{num}', EMAIL_HOST_USER, res_email)
-    result = email.send()
+    email.send()
 
-    return result
+    return num
+
+
+# def ret(message):
+#     return message

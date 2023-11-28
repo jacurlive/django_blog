@@ -87,7 +87,7 @@
                                                 <p>{{ last.blog_comment_set.count }}</p>
                                             </div>
                                         </div>
-                                        <p class="card__content-description">{{ last.description|striptags|truncatechars:150 }}</p>
+                                        <p class="card__content-description">{{ last.description|safe|truncatechars:145 }}</p>
                                         <a class="more-btn" href="{% url 'post_detail' last.slug %}">Read more </a>
                                     </div>
                                 </div>

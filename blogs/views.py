@@ -82,6 +82,7 @@ class RegisterView(FormView):
 
 
 class ConfirmEmailView(TemplateView):
+    # form_class = ConfirmEmail
     template_name = 'auth/confirm_email.html'
 
 
