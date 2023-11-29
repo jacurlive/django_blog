@@ -46,7 +46,8 @@ class User(AbstractUser):
     is_active = BooleanField(default=False)
 
     class Meta:
-        verbose_name = 'Users'
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
     def __str__(self):
         return self.username

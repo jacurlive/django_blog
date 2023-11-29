@@ -2,7 +2,13 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from django.urls import reverse
 from django.utils.html import format_html
-from blogs.models import Blog, Category, Comment, AboutUs, ContactMessage
+from blogs.models import Blog, Category, Comment, AboutUs, ContactMessage, User
+
+
+@admin.register(User)
+class UserAdmin(ModelAdmin):
+    list_display = ('username', 'is_staff', 'email', 'is_active')
+    list_editable = ('is_active',)
 
 
 @admin.register(Blog)
