@@ -12,8 +12,8 @@ class Category(Model):
     slug = SlugField(max_length=255, unique=True)
 
     class Meta:
-        verbose_name = 'Categoriya'
-        verbose_name_plural = 'Categoriyalar'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.name
@@ -46,7 +46,7 @@ class User(AbstractUser):
     is_active = BooleanField(default=False)
 
     class Meta:
-        verbose_name = 'Userlar'
+        verbose_name = 'Users'
 
     def __str__(self):
         return self.username
@@ -54,9 +54,9 @@ class User(AbstractUser):
 
 class Blog(Model):
     class Status(TextChoices):
-        PENDING = 'pending', 'Kutilmoqda'
-        ACTIVE = 'active', 'Faol'
-        CANCEL = 'cancel', 'Rad etilgan'
+        PENDING = 'pending', 'Pending'
+        ACTIVE = 'active', 'Active'
+        CANCEL = 'cancel', 'Cancel'
     title = CharField(max_length=300)
     description = RichTextField()
     image = ResizedImageField(upload_to='blogs/%m')
@@ -69,8 +69,8 @@ class Blog(Model):
 
     class Meta:
         db_table = 'blog'
-        verbose_name = 'blog'
-        verbose_name_plural = 'bloglar'
+        verbose_name = 'Blog'
+        verbose_name_plural = 'Blogs'
 
     def __str__(self):
         return self.title
@@ -100,7 +100,7 @@ class Comment(Model):
 
     class Meta:
         verbose_name = 'Comment'
-        verbose_name_plural = 'Commentlar'
+        verbose_name_plural = 'Comments'
 
     def __str__(self):
         return self.text
